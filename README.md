@@ -5,42 +5,41 @@ O objetivo é ranquear os documentos de acordo com a relevância de cada um para
 - Um conjunto de arquivos de texto contendo documentos aleatórios.
 - Deverá ser preparado uma lista de frases de pesquisa, onde cada frase deve ser comparada aos documentos fornecidos para determinar a relevância de cada arquivo em relação à frase.
 
+
 # O Algoritmo
 
 ```INPUT```
 
-A proposta do trabalho consiste na leitura de três matrizes que formam o labirinto que será percorrido. A ideia principal é de que o personagem consiga todas as matrizes até que o jogo acabe. 
+O projeto começa com a leitura de diversos documentos de texto armazenados na pasta ```dataset/input/```. Cada documento é processado para que seus termos sejam extraídos de maneira limpa e normalizada. Além dos documentos, o programa também lê duas fontes adicionais de entrada: uma lista de frases de pesquisa e um conjunto de stopwords. As frases de pesquisa são carregadas do arquivo ```frases.txt```, e cada linha desse arquivo representa uma frase que será utilizada para avaliar a relevância dos documentos. O objetivo é que o sistema compare essas frases com os documentos e determine quais são mais relevantes.
 
-Além das regras propostas pelo trabalho, foi incrementado outras regras, das quais são elas: (a) existem um portal do lado esquerdo e direito; (b) o loop só vai parar quando o personagem morrer; (c) o jogo vai acabar quando o personagem percorrer todas as matrizes; (c) o personagem só avançará para a próxima matriz quando avançar pelos portais ou quando bater na parede, que será jogado automaticamente para outra matriz.
+O arquivo ```stopwords.txt``` contém palavras comuns que não possuem valor significativo para o cálculo da relevância, como artigos e preposições. Essas palavras são eliminadas durante o processamento para evitar que influenciem o ranqueamento. A leitura dos documentos é feita de forma sequencial, abrindo cada arquivo localizado na pasta de entrada. Se algum arquivo não puder ser aberto corretamente, o programa emite uma mensagem de erro e continua com os demais arquivos. A cada palavra lida, o sistema a converte para letras minúsculas e remove pontuações, garantindo uniformidade na comparação entre documentos e frases de pesquisa. Além disso, todas as stopwords presentes nos documentos são removidas.
 
-A função leitura é responsável pela leitura do arquivo de entrada e pela criação do arquivo de saída. O arquivo de entrada é aberto em modo leitura e o de saída em modo escrita. Após isso, o programa lê cada linha do arquivo de entrada e, a partir da segunda linha, realiza a separação de cada palavra (número) da linha utilizando um separador```" "```. O código converte a palavra lida para um número inteiro e armazena na matriz de entrada. Caso a palavra lida seja igual a ```*``` ou ```#```, o código identifica que se trata de um parede ou perigo, respectivamente. Ao fim da leitura de cada linha, caso a matriz tenha sido totalmente lida, o código chama a função checkpoint para salvar o estado atual da matriz no arquivo de checkpoint e a função fazCopia para salvar uma cópia do arquivo de checkpoint.
+Ao final desse processo, cada documento é representado por um vetor de termos relevantes, pronto para ser analisado. Esse cuidado na normalização é fundamental para que o cálculo de TF-IDF funcione corretamente e para garantir que apenas palavras significativas sejam consideradas na análise.
 
-Em resumo, o código lê um arquivo de entrada contendo uma matriz e salva o estado atual da matriz em um arquivo de checkpoint. A partir do arquivo de checkpoint, o programa cria uma cópia da matriz para salvar o caminho percorrido pelo usuário, caso exista.
+Frases utilizadas no INPUT
 
-```Exemplo de INPUT```
-
-<center>
-<table>
-   <tr>
-      <td>Input</td>
-      <td>Checkpoint</td>
-   </tr>
-   <tr>
-      <td><img src="images/input.png"/></td>
-      <td><img src="images/checkpoint.png"/></td>
-   </tr>
-</table>
-</center> 
-
-O personagem ```(@)``` é representado pelas variáveis ```x_atual``` e ```y_atual```, que representam a posição atual do personagem na matriz do jogo. O movimento do personagem é feito aleatoriamente em uma das oito direções possíveis, representadas pela variável posicao, que é gerada pela função ```rand()```.
-
-A função ```Movimentar()``` é responsável por fazer o movimento do personagem de acordo com a direção gerada pela função ```rand()```. Ela recebe como parâmetros as coordenadas atuais do personagem ```(x e y)```, a direção gerada pela função ```rand() (posicao)```, as dimensões da matriz do jogo (linha e coluna) e um ponteiro para a variável teleporte. A função verifica a direção gerada e faz o movimento do personagem de acordo com a direção escolhida. Se o movimento tentar levar o personagem para fora da matriz, o ponteiro teleporte é setado para um valor diferente de zero, indicando que o personagem deve ser teleportado para a outra extremidade da matriz.
-
-Dentro do loop infinito que faz o movimento do personagem e atualiza as informações do jogo enquanto o personagem estiver vivo, a função gera uma nova direção aleatória para o movimento do personagem. As coordenadas atuais do personagem são armazenadas nas variáveis ```x_aux``` e ```y_aux``` para que seja possível verificar se houve uma mudança de posição. Se o movimento não levar o personagem para fora da matriz e não levar o personagem para uma posição com um parede ```(-1)``` ou um perigo ```(-2)```, as informações do jogo são atualizadas. Se a posição atual do personagem contiver um item ```(> 0)```, o item é coletado e a sacola do personagem é incrementada. Se a sacola do personagem chegar a quatro itens, a vida do personagem é incrementada se ela for menor do que dez e a sacola é esvaziada.
-
-Se o movimento do personagem levar para uma posição com um perigo ```(-2)```, a vida do personagem é decrementada, a sacola é esvaziada e a variável perigo é incrementada. Se a vida do personagem chegar a zero, a variável status é setada para zero, indicando que o personagem morreu e a função retorna.
-
-Se o movimento do personagem levar para uma posição com um parede ```(-1)```, as coordenadas do personagem são revertidas para as coordenadas originais armazenadas em ```x_aux``` e ```y_aux```. Se o movimento do personagem levar para uma posição com uma cópia de um checkpoint anterior, a matriz do jogo é atualizada para a matriz armazenada na cópia do checkpoint, e a posição atual do personagem é atualizada para a posição do checkpoint
+```
+O céu está muito azul hoje  
+Acordei de bom humor  
+Comprei frutas no mercado  
+A tarde foi bem tranquila  
+Preciso organizar minha mesa  
+O cachorro está brincando no quintal  
+A água do rio é cristalina  
+Hoje é um bom dia para correr  
+A comida ficou salgada demais  
+Vamos tomar sorvete mais tarde  
+Estou com saudade da praia  
+O livro novo é muito interessante  
+A cidade está silenciosa à noite  
+Gosto de ver o pôr do sol  
+A brisa da manhã é refrescante  
+O bolo acabou de sair do forno  
+Vou assistir uma série hoje  
+As crianças estão brincando na praça  
+Preciso encontrar meus óculos  
+O jantar foi perfeito  
+```
 
 
 ```OUTPUT```
