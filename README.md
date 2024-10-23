@@ -1,9 +1,9 @@
 # Proposta do Trabalho
 
-O objetivo do trabalho é fazer um jogo na qual consiste que um personagem percorra um labirinto construído por diversas matrizes, das quais possui as seguintes regras:
-- O jogo termina quando o personagem perde toda a vida (possui um total de 10 de vida).
-- Possui paredes durante o caminho que são representadas por ```#```, que são locais onde o personagem não pode caminhar.
-- Possui caminhos chamados de perigo, representados por ```*```, que são locais onde o personagem perde uma vida cada vez que passa por ele.
+O objetivo é ranquear os documentos de acordo com a relevância de cada um para uma frase de pesquisa específica, utilizando a métrica TF/IDF para calcular tal relevância.
+
+- Um conjunto de arquivos de texto contendo documentos aleatórios.
+- Deverá ser preparado uma lista de frases de pesquisa, onde cada frase deve ser comparada aos documentos fornecidos para determinar a relevância de cada arquivo em relação à frase.
 
 # O Algoritmo
 
