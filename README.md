@@ -20,8 +20,6 @@ O arquivo de stopwords contém uma lista de palavras comuns que não agregam val
 
 Após a leitura dos documentos e das stopwords, é realizada uma normalização do conteúdo textual. Esse processo converte todas as palavras para letras minúsculas e remove caracteres não alfabéticos. Em seguida, a função ```normalizarDocumentos``` aplica a remoção das stopwords, eliminando termos irrelevantes e deixando apenas palavras significativas para serem utilizadas nos cálculos de relevância e ranqueamento.
 
-Esse fluxo de preparação dos dados de entrada é essencial para assegurar que o sistema funcione de forma correta, possibilitando que os documentos sejam comparados corretamente às frases de pesquisa fornecidas e que os resultados sejam ranqueados de acordo com a relevância calculada.
-
 ```Frases utilizadas no INPUT```
 
 
