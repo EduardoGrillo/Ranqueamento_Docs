@@ -1,4 +1,4 @@
-# Proposta do Trabalho
++# Proposta do Trabalho
 
 O objetivo é ranquear os documentos de acordo com a relevância de cada um para uma frase de pesquisa específica, utilizando a métrica TF/IDF para calcular tal relevância.
 
@@ -23,6 +23,7 @@ Após a leitura dos documentos e das stopwords, é realizada uma normalização 
 Esse fluxo de preparação dos dados de entrada é essencial para assegurar que o sistema funcione de forma correta, possibilitando que os documentos sejam comparados corretamente às frases de pesquisa fornecidas e que os resultados sejam ranqueados de acordo com a relevância calculada.
 
 ```Frases utilizadas no INPUT```
+
 
 ```
 O céu está muito azul hoje  
@@ -97,11 +98,9 @@ Documento 6 - Relevância: 0.002937
 
 # Estruturas
 
-O projeto utiliza o método ```TF-IDF``` (Term Frequency-Inverse Document Frequency) como uma das abordagens principais para avaliar a relevância dos documentos em relação às frases de pesquisa. Essa técnica permite medir a importância de um termo não apenas com base na sua frequência em um único documento, mas também considerando a sua raridade em toda a coleção de documentos. O cálculo do TF-IDF é realizado em duas etapas: o cálculo da frequência do termo (TF) e do inverso da frequência dos documentos (IDF).
+O projeto utiliza o método ```TF-IDF``` (Term Frequency-Inverse Document Frequency) como uma das abordagens principais para avaliar a relevância dos documentos em relação às frases de pesquisa. O cálculo do TF-IDF é realizado em duas etapas: o cálculo da frequência do termo (TF) e do inverso da frequência dos documentos (IDF).
 
 A frequência do termo (TF) mede o número de vezes que uma palavra aparece em um documento, normalizando esse valor pelo número total de palavras no documento. Essa normalização evita que documentos mais longos apresentem uma relevância inflada apenas por conter mais palavras.
-
-Já o inverso da frequência dos documentos (IDF) é utilizado para reduzir a importância de termos muito comuns, que aparecem em vários documentos, e destacar palavras mais raras, que são mais significativas para a análise. onde N é o número total de documentos e  n é o número de documentos que contêm o termo. A adição de 1 no denominador e o uso da função log(1+x) garantem que não haja divisões por zero e evitam problemas com termos muito comuns que aparecem em todos os documentos.
 
 </p>
 
@@ -112,6 +111,30 @@ Já o inverso da frequência dos documentos (IDF) é utilizado para reduzir a im
 <em>Imagem 1: Fórmula do método TF-IDF </em>
 
 </p>
+
+Já o inverso da frequência dos documentos (IDF) é utilizado para reduzir a importância de termos muito comuns, que aparecem em vários documentos, e destacar palavras mais raras, que são mais significativas para a análise. N é o número total de documentos e  n é o número de documentos que contêm o termo. 
+
+</p>
+
+<p align="center">
+<img src="images/tfidf.png" width="400"/>
+</p>
+<p align="center">
+<em>Imagem 1: Fórmula do método TF-IDF </em>
+
+</p>
+
+Entre as principais estruturas empregadas, destacam-se os vetores (```std::vector```), os conjuntos não ordenados (```std::unordered_set```), as tabelas de espalhamento (```std::unordered_map```) e o uso da função ```sort```. 
+
+Os vetores foram utilizados para armazenar documentos, frases de pesquisa e rankings. Essa escolha se deve à eficiência no acesso direto aos elementos, que ocorre em tempo constante, O(1). Como as operações mais frequentes neste projeto envolvem iteração e acesso sequencial, os vetores foram uma escolha mais apropriada em relação a outras estruturas, como listas ligadas (std::list). Listas ligadas seriam mais vantajosas em cenários com necessidade de inserções e remoções frequentes em posições arbitrárias, mas no contexto deste projeto, a simplicidade e a eficiência de acesso dos vetores oferecem uma solução melhor.
+
+Os conjuntos não ordenados (std::unordered_set) foram empregados para armazenar as stopwords. Essa escolha foi feita devido à necessidade de realizar buscas rápidas para identificar e remover palavras irrelevantes dos documentos. A estrutura unordered_set oferece buscas em tempo constante, O(1), o que é crucial para manter a eficiência na normalização dos textos. Como alternativa, seria possível utilizar vetores para armazenar as stopwords e realizar buscas lineares, O(n), mas isso tornaria o sistema significativamente mais lento para grandes conjuntos de dados.
+
+As tabelas de espalhamento (std::unordered_map) desempenharam um papel essencial no cálculo e armazenamento dos pesos TF-IDF para os termos presentes nos documentos. Essa estrutura foi escolhida por sua capacidade de inserir e acessar elementos em tempo constante. Alternativas como árvores balanceadas (std::map) oferecem ordenação dos dados, mas como a ordenação não é um requisito no cálculo de TF-IDF, as unordered_map proporcionam um desempenho superior. A eficiência no cálculo dos pesos TF-IDF é essencial para garantir que a busca e o ranqueamento dos documentos sejam rápidos e responsivos.
+
+A função sort, utilizada para ordenar os documentos com base em sua relevância, é uma implementação eficiente do algoritmo de ordenação QuickSort na biblioteca padrão do C++. Essa função apresenta complexidade O(n log n), sendo adequada para ordenar grandes quantidades de dados de forma rápida. No contexto deste projeto, a função foi utilizada tanto no ranqueamento dos documentos por frequência quanto no cálculo da relevância baseada em TF-IDF. Embora existam outras abordagens de ordenação, como MergeSort, a implementação de sort é otimizada e aproveita as características do hardware moderno, sendo uma escolha robusta e eficiente para o problema proposto.
+
+Em termos de desempenho, o sistema se mostrou eficiente tanto em relação ao tempo de execução quanto ao uso de memória. A leitura e processamento dos documentos são proporcionais ao número de palavras, O(n), e a normalização dos textos se beneficia da escolha da estrutura unordered_set para as stopwords. O cálculo dos pesos TF-IDF, embora tenha uma complexidade O(n * d), onde n é o número de termos e d é o número de documentos, é otimizado pelo uso de unordered_map, o que permite acesso rápido aos dados durante o processo de ranqueamento. O uso de memória é moderado, uma vez que as tabelas de espalhamento e vetores consomem mais espaço do que listas simples, mas essa sobrecarga é justificada pela necessidade de acesso rápido e eficiente.
 
 # Conclusão
 
