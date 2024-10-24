@@ -1,4 +1,4 @@
-+# Proposta do Trabalho
+# Proposta do Trabalho
 
 O objetivo é ranquear os documentos de acordo com a relevância de cada um para uma frase de pesquisa específica, utilizando a métrica TF/IDF para calcular tal relevância.
 
