@@ -96,6 +96,8 @@ Documento 6 - Relevância: 0.002937
 
 # Estruturas
 
+```TF-IDF```
+
 O método TF-IDF (Term Frequency-Inverse Document Frequency) é uma técnica bastante utilizada em mineração de textos e recuperação de informações para avaliar a importância de um termo específico em um documento dentro de um conjunto de documentos. A importância é determinada pela frequência do termo no documento e pela raridade do termo nos demais documentos do corpus.
 
 A fórmula do TF (Term Frequency) apresentada é:
@@ -140,7 +142,9 @@ A combinação dessas duas métricas resulta no cálculo do TF-IDF, conforme mos
 
 O valor de TF-IDF é, portanto, um produto da frequência do termo no documento e sua raridade no conjunto de documentos. Essa métrica é útil para destacar termos que são frequentes em um determinado documento, mas incomuns no restante do corpus, o que pode indicar uma maior relevância na diferenciação de conteúdos.
 
-Entre as principais estruturas empregadas, destacam-se os vetores (```std::vector```), os conjuntos não ordenados (```std::unordered_set```), as tabelas de espalhamento (```std::unordered_map```) e o uso da função ```sort```. 
+
+
+```MergeSort```
 
 </p>
 
@@ -151,6 +155,10 @@ Entre as principais estruturas empregadas, destacam-se os vetores (```std::vecto
 <em>Imagem 5: MergeSort </em>
 
 </p>
+
+```Análise das estruturas```
+
+Entre as principais estruturas empregadas, destacam-se os vetores (```std::vector```), os conjuntos não ordenados (```std::unordered_set```), as tabelas de espalhamento (```std::unordered_map```) e o uso da função ```sort```. 
 
 Os vetores foram utilizados para armazenar documentos, frases de pesquisa e rankings. Essa escolha se deve à eficiência no acesso direto aos elementos, que ocorre em tempo constante, O(1). Como as operações mais frequentes neste projeto envolvem iteração e acesso sequencial, os vetores foram uma escolha mais apropriada em relação a outras estruturas, como listas ligadas (std::list). Listas ligadas seriam mais vantajosas em cenários com necessidade de inserções e remoções frequentes em posições arbitrárias, mas no contexto deste projeto, a simplicidade e a eficiência de acesso dos vetores oferecem uma solução melhor.
 
