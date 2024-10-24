@@ -106,7 +106,7 @@ Já o inverso da frequência dos documentos (IDF) é utilizado para reduzir a im
 </p>
 
 <p align="center">
-<img src="images/tfidf.png" width="600"/>
+<img src="images/tfidf.png" width="400"/>
 </p>
 <p align="center">
 <em>Imagem 1: Fórmula do método TF-IDF </em>
