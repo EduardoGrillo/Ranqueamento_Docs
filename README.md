@@ -142,6 +142,16 @@ O valor de TF-IDF é, portanto, um produto da frequência do termo no documento 
 
 Entre as principais estruturas empregadas, destacam-se os vetores (```std::vector```), os conjuntos não ordenados (```std::unordered_set```), as tabelas de espalhamento (```std::unordered_map```) e o uso da função ```sort```. 
 
+</p>
+
+<p align="center">
+<img src="images/mergesort.png" width="400"/>
+</p>
+<p align="center">
+<em>Imagem 5: MergeSort </em>
+
+</p>
+
 Os vetores foram utilizados para armazenar documentos, frases de pesquisa e rankings. Essa escolha se deve à eficiência no acesso direto aos elementos, que ocorre em tempo constante, O(1). Como as operações mais frequentes neste projeto envolvem iteração e acesso sequencial, os vetores foram uma escolha mais apropriada em relação a outras estruturas, como listas ligadas (std::list). Listas ligadas seriam mais vantajosas em cenários com necessidade de inserções e remoções frequentes em posições arbitrárias, mas no contexto deste projeto, a simplicidade e a eficiência de acesso dos vetores oferecem uma solução melhor.
 
 Os conjuntos não ordenados (std::unordered_set) foram empregados para armazenar as stopwords. Essa escolha foi feita devido à necessidade de realizar buscas rápidas para identificar e remover palavras irrelevantes dos documentos. A estrutura unordered_set oferece buscas em tempo constante, O(1), o que é crucial para manter a eficiência na normalização dos textos. Como alternativa, seria possível utilizar vetores para armazenar as stopwords e realizar buscas lineares, O(n), mas isso tornaria o sistema significativamente mais lento para grandes conjuntos de dados.
