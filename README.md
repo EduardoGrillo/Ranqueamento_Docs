@@ -96,9 +96,23 @@ Documento 6 - Relevância: 0.002937
 
 # Estruturas
 
-O projeto utiliza o método ```TF-IDF``` (Term Frequency-Inverse Document Frequency) como uma das abordagens principais para avaliar a relevância dos documentos em relação às frases de pesquisa. O cálculo do TF-IDF é realizado em duas etapas: o cálculo da frequência do termo (TF) e do inverso da frequência dos documentos (IDF).
+O método TF-IDF (Term Frequency-Inverse Document Frequency) é uma técnica bastante utilizada em mineração de textos e recuperação de informações para avaliar a importância de um termo específico em um documento dentro de um conjunto de documentos. A importância é determinada pela frequência do termo no documento e pela raridade do termo nos demais documentos do corpus.
 
-A frequência do termo (TF) mede o número de vezes que uma palavra aparece em um documento, normalizando esse valor pelo número total de palavras no documento. Essa normalização evita que documentos mais longos apresentem uma relevância inflada apenas por conter mais palavras.
+A fórmula do TF (Term Frequency) apresentada é:
+
+</p>
+
+<p align="center">
+<img src="images/tfidf.png" width="400"/>
+</p>
+<p align="center">
+<em>Imagem 1: Fórmula do método TF-IDF </em>
+
+</p>
+
+O valor de TF quantifica a frequência de um termo t em um documento d. Ele é utilizado para medir a relevância local de um termo dentro de um documento específico, dando maior peso aos termos que aparecem com maior frequência.
+
+O IDF (Inverse Document Frequency) é definido por:
 
 </p>
 
@@ -110,7 +124,9 @@ A frequência do termo (TF) mede o número de vezes que uma palavra aparece em u
 
 </p>
 
-Já o inverso da frequência dos documentos (IDF) é utilizado para reduzir a importância de termos muito comuns, que aparecem em vários documentos, e destacar palavras mais raras, que são mais significativas para a análise. N é o número total de documentos e  n é o número de documentos que contêm o termo. 
+Nesta fórmula, N representa o número total de documentos no corpus e df é a quantidade de documentos que contêm o termo t. A adição de 1 no denominador serve para evitar divisões por zero. O IDF mede a relevância global do termo, atribuindo maior peso a termos que aparecem em menos documentos.
+
+A combinação dessas duas métricas resulta no cálculo do TF-IDF, conforme mostrado na equação:
 
 </p>
 
@@ -121,6 +137,8 @@ Já o inverso da frequência dos documentos (IDF) é utilizado para reduzir a im
 <em>Imagem 1: Fórmula do método TF-IDF </em>
 
 </p>
+
+O valor de TF-IDF é, portanto, um produto da frequência do termo no documento e sua raridade no conjunto de documentos. Essa métrica é útil para destacar termos que são frequentes em um determinado documento, mas incomuns no restante do corpus, o que pode indicar uma maior relevância na diferenciação de conteúdos.
 
 Entre as principais estruturas empregadas, destacam-se os vetores (```std::vector```), os conjuntos não ordenados (```std::unordered_set```), as tabelas de espalhamento (```std::unordered_map```) e o uso da função ```sort```. 
 
