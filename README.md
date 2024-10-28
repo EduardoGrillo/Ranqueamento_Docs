@@ -105,10 +105,10 @@ A fórmula do TF (Term Frequency) apresentada é:
 </p>
 
 <p align="center">
-<img src="images/tfidf.png" width="400"/>
+<img src="images/tf.png" width="400"/>
 </p>
 <p align="center">
-<em>Imagem 1: Fórmula do método TF-IDF </em>
+<em>Imagem 1: Fórmula do método TF. </em>
 
 </p>
 
@@ -119,10 +119,10 @@ O IDF (Inverse Document Frequency) é definido por:
 </p>
 
 <p align="center">
-<img src="images/tfidf.png" width="400"/>
+<img src="images/idf.png" width="400"/>
 </p>
 <p align="center">
-<em>Imagem 1: Fórmula do método TF-IDF </em>
+<em>Imagem 2: Fórmula do método IDF. </em>
 
 </p>
 
@@ -136,7 +136,7 @@ A combinação dessas duas métricas resulta no cálculo do TF-IDF, conforme mos
 <img src="images/tfidf.png" width="400"/>
 </p>
 <p align="center">
-<em>Imagem 1: Fórmula do método TF-IDF </em>
+<em>Imagem 3: Fórmula do método TF-IDF. </em>
 
 </p>
 
@@ -146,13 +146,19 @@ O valor de TF-IDF é, portanto, um produto da frequência do termo no documento 
 
 ```MergeSort```
 
+O Merge Sort é um algoritmo de ordenação eficiente que utiliza a abordagem "dividir para conquistar" (divide and conquer). Ele funciona dividindo recursivamente a lista original em sublistas menores, até que cada sublista contenha apenas um elemento ou nenhum (o que garante que estejam, por definição, ordenadas). Em seguida, essas sublistas são combinadas (ou mescladas) de maneira ordenada para formar a lista final organizada.
+
+No processo, o algoritmo primeiro divide a lista na metade repetidamente. Uma vez que todas as divisões são feitas, começa a fase de mesclagem, onde as sublistas são comparadas elemento a elemento e reordenadas à medida que são combinadas. Como mostrado no gif, a sequência de divisão e mesclagem ocorre até que a lista completa esteja em ordem crescente.
+
+O Merge Sort possui um desempenho consistente, com complexidade de tempo O(nlogn) tanto no melhor quanto no pior caso, o que o torna eficiente para grandes volumes de dados. No entanto, ele pode exigir espaço extra proporcional ao tamanho da lista, já que precisa armazenar temporariamente as sublistas durante a fase de mesclagem.
+
 </p>
 
 <p align="center">
 <img src="images/mergesort.png" width="400"/>
 </p>
 <p align="center">
-<em>Imagem 5: MergeSort </em>
+<em>Imagem 4: Método de Organização do MergeSort. </em>
 
 </p>
 
