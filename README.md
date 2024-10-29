@@ -10,15 +10,17 @@ O objetivo é ranquear os documentos de acordo com a relevância de cada um para
 
 ```INPUT```
 
-O projeto utiliza três tipos de arquivos de entrada essenciais para o processamento: frases de pesquisa, documentos e uma lista de stopwords. Esses arquivos desempenham funções específicas na preparação dos dados para a análise e o ranqueamento dos documentos.
+O projeto utiliza quatro tipos principais de arquivos de entrada para o processamento: frases de pesquisa, documentos, uma lista de stopwords e a implementação do algoritmo de Merge Sort para ordenação. Cada um desses elementos é essencial para garantir a preparação adequada dos dados, a normalização, a ordenação das palavras e o ranqueamento dos documentos.
 
-O arquivo de frases de pesquisa contém, em cada linha, uma frase utilizada como critério de busca para ranquear os documentos. Essas frases são carregadas por meio da função ```lerFrasesDePesquisa```, que lê cada linha do arquivo e as armazena em uma lista, implementada como um vetor do tipo ```vector<string>```. As frases servem como consultas, sendo comparadas com o conteúdo dos documentos após o processamento.
+O arquivo de frases de pesquisa contém, em cada linha, uma frase que serve como critério de busca para ranquear documentos. Essas frases são lidas por meio da função ```lerFrasesDePesquisa```, que as armazena em um vetor (```vector<string>```). Após carregadas, essas frases são utilizadas como consultas para comparação com o conteúdo dos documentos processados.
 
-Os documentos são lidos a partir de uma pasta específica, onde cada arquivo representa um documento individual. A função ```lerDocumentos``` percorre todos os arquivos da pasta fornecida e extrai as palavras de cada um, armazenando-as em um vetor de vetores, no formato ```vector<vector<string>>```, em que cada subvetor corresponde a um documento completo. 
+Os documentos são lidos de uma pasta específica, onde cada arquivo representa um documento individual. A função ```lerDocumentos``` percorre todos os arquivos da pasta fornecida, extraindo suas palavras e armazenando-as em um vetor de vetores (```vector<vector<string>>```), onde cada subvetor representa um documento completo.
 
-O arquivo de stopwords contém uma lista de palavras comuns que não agregam valor significativo à análise semântica, como artigos e preposições, e que precisam ser removidas do conteúdo dos documentos. A função ```lerStopwords``` carrega essas palavras e as armazena em uma estrutura de conjunto, implementada como ```unordered_set<string>```, permitindo buscas rápidas e eficientes. Durante o processo de normalização dos documentos, essas stopwords são eliminadas, de forma a garantir que apenas termos relevantes sejam utilizados na comparação.
+O arquivo de stopwords contém uma lista de palavras comuns que não agregam valor à análise semântica, como artigos e preposições, e que precisam ser removidas dos documentos. A função ```lerStopwords``` carrega essas palavras em uma estrutura de conjunto (```unordered_set<string>```), permitindo buscas pelos documentos e a remoção durante a normalização do texto. Durante o processo de normalização dos documentos, essas stopwords são eliminadas, de forma a garantir que apenas termos relevantes sejam utilizados na comparação.
 
 Após a leitura dos documentos e das stopwords, é realizada uma normalização do conteúdo textual. Esse processo converte todas as palavras para letras minúsculas e remove caracteres não alfabéticos. Em seguida, a função ```normalizarDocumentos``` aplica a remoção das stopwords, eliminando termos irrelevantes e deixando apenas palavras significativas para serem utilizadas nos cálculos de relevância e ranqueamento.
+
+Com o método de ordenação ```Merge Sort```, é possível fazer a ordenação dos resultados de busca. Implementado tanto no ranqueamento por frequência de termos quanto no cálculo de ```TF-IDF```, esse método é utilizado para organizar os documentos de forma decrescente, com base em suas relevâncias ou frequências. Esse método divide recursivamente o vetor de resultados em subvetores menores, até que cada um contenha um único elemento, e então realiza a mesclagem ordenada dos elementos. 
 
 ```Frases utilizadas no INPUT```
 
@@ -49,16 +51,15 @@ O jantar foi perfeito
 
 ```OUTPUT```
 
-O objetivo é mostrar quais documentos são mais relevantes para cada frase de pesquisa utilizando duas abordagens distintas: a frequência de termos e o cálculo do TF-IDF.
+O objetivo é exibir quais documentos são mais relevantes para cada frase de pesquisa, utilizando duas abordagens: frequência de termos e TF-IDF. 
 
-A função principal que coordena a saída de dados é o output, localizada no arquivo ```print.cpp```. Nessa função, após a leitura e normalização dos documentos, são realizados os cálculos de relevância para cada frase de pesquisa. Esses cálculos utilizam as duas abordagens implementadas: frequência de termos, por meio da função ```ranquearDocsFrequencia```, e TF-IDF, através da função ```ranquearDocsTFIDF```. Ambos os métodos analisam como cada termo da frase de pesquisa ocorre nos documentos e geram um ranking baseado na relevância desses termos.
+A função principal responsável por coordenar a saída de dados é a output, localizada no arquivo ```print.cpp```. Nessa função, após a leitura, normalização e processamento dos documentos, são realizados os cálculos de relevância para cada frase de pesquisa. O processo utiliza as duas abordagens implementadas: frequência de termos, por meio da função ```ranquearDocsFrequencia```, e TF-IDF, por meio da função ```ranquearDocsTFIDF```. Ambos os métodos avaliam a presença e relevância dos termos das frases de pesquisa nos documentos, gerando rankings ordenados.
 
-No caso da abordagem por frequência de termos, o output exibe os documentos ordenados com base na quantidade de vezes que os termos da frase de pesquisa aparecem em cada documento. A função ```ranquearDocsFrequencia``` exibe o ranking no terminal, indicando para cada documento o termo mais frequente e sua contagem, ordenando os documentos de forma decrescente pela frequência. 
+No método de frequência de termos, o output exibe os documentos em ordem decrescente com base no número de vezes que os termos da frase de pesquisa aparecem em cada documento. A função ```ranquearDocsFrequencia``` é responsável por calcular e exibir o ranking no terminal, indicando para cada documento o termo mais frequente e sua contagem. O Merge Sort é utilizado para garantir que os documentos sejam exibidos do mais relevante para o menos relevante, com base na frequência.
 
-A segunda abordagem, baseada no TF-IDF (Term Frequency-Inverse Document Frequency), é gerada pela função ```ranquearDocsTFIDF```. Essa função calcula o peso dos termos em cada documento, considerando não apenas a frequência, mas também a raridade dos termos nos demais documentos. O output desse método é exibido no terminal com precisão de seis casas decimais, mostrando para cada frase de pesquisa os documentos mais relevantes em ordem decrescente de relevância.
+Na segunda abordagem, baseada no TF-IDF, o cálculo considera não apenas a frequência dos termos, mas também a raridade desses termos nos demais documentos, gerando uma medida de relevância mais precisa. A função ```ranquearDocsTFIDF``` calcula os pesos dos termos e utiliza o ```Merge Sort``` para ordenar os documentos por relevância de forma eficiente. O output exibe o resultado no terminal com precisão de seis casas decimais, destacando para cada frase de pesquisa os documentos mais relevantes e seus respectivos pesos.
 
-Cada ranking gerado contém um cabeçalho indicando a frase de pesquisa correspondente, seguido pela lista de documentos, seus termos mais relevantes e, no caso do TF-IDF, o peso calculado para cada documento. 
-
+Cada ranking gerado é apresentado com um cabeçalho que indica a frase de pesquisa utilizada, seguido por uma lista detalhada de documentos. Para a abordagem por frequência, são exibidos os termos mais relevantes e suas contagens; já para o método TF-IDF, cada linha mostra o peso calculado para o documento correspondente. 
 
 
 ```Alguns exemplos de OUTPUT```
@@ -164,21 +165,14 @@ O Merge Sort possui um desempenho consistente, com complexidade de tempo O(nlogn
 
 ```Análise das estruturas```
 
-Entre as principais estruturas empregadas, destacam-se os vetores (```std::vector```), os conjuntos não ordenados (```std::unordered_set```), as tabelas de espalhamento (```std::unordered_map```) e o uso da função ```sort```. 
 
-Os vetores foram utilizados para armazenar documentos, frases de pesquisa e rankings. Essa escolha se deve à eficiência no acesso direto aos elementos, que ocorre em tempo constante, O(1). Como as operações mais frequentes neste projeto envolvem iteração e acesso sequencial, os vetores foram uma escolha mais apropriada em relação a outras estruturas, como listas ligadas (std::list). Listas ligadas seriam mais vantajosas em cenários com necessidade de inserções e remoções frequentes em posições arbitrárias, mas no contexto deste projeto, a simplicidade e a eficiência de acesso dos vetores oferecem uma solução melhor.
+O ```Merge Sort``` foi escolhido não apenas por sua estabilidade, mas também para explorar novas estruturas e promover aprendizado no contexto deste trabalho, como o uso de tuplas e pares na manipulação dos dados. Além disso, sua eficiência em lidar com grandes volumes de documentos foi um fator a ser considerado também, já que sua abordagem de dividir para conquistar garante desempenho consistente com complexidade ```O(nlogn)```, independentemente da distribuição dos dados.
 
-Os conjuntos não ordenados (std::unordered_set) foram empregados para armazenar as stopwords. Essa escolha foi feita devido à necessidade de realizar buscas rápidas para identificar e remover palavras irrelevantes dos documentos. A estrutura unordered_set oferece buscas em tempo constante, O(1), o que é crucial para manter a eficiência na normalização dos textos. Como alternativa, seria possível utilizar vetores para armazenar as stopwords e realizar buscas lineares, O(n), mas isso tornaria o sistema significativamente mais lento para grandes conjuntos de dados.
-
-As tabelas de espalhamento (std::unordered_map) desempenharam um papel essencial no cálculo e armazenamento dos pesos TF-IDF para os termos presentes nos documentos. Essa estrutura foi escolhida por sua capacidade de inserir e acessar elementos em tempo constante. Alternativas como árvores balanceadas (std::map) oferecem ordenação dos dados, mas como a ordenação não é um requisito no cálculo de TF-IDF, as unordered_map proporcionam um desempenho superior. A eficiência no cálculo dos pesos TF-IDF é essencial para garantir que a busca e o ranqueamento dos documentos sejam rápidos e responsivos.
-
-A função sort, utilizada para ordenar os documentos com base em sua relevância, é uma implementação eficiente do algoritmo de ordenação QuickSort na biblioteca padrão do C++. Essa função apresenta complexidade O(n log n), sendo adequada para ordenar grandes quantidades de dados de forma rápida. No contexto deste projeto, a função foi utilizada tanto no ranqueamento dos documentos por frequência quanto no cálculo da relevância baseada em TF-IDF. Embora existam outras abordagens de ordenação, como MergeSort, a implementação de sort é otimizada e aproveita as características do hardware moderno, sendo uma escolha robusta e eficiente para o problema proposto.
-
-Em termos de desempenho, o sistema se mostrou eficiente tanto em relação ao tempo de execução quanto ao uso de memória. A leitura e processamento dos documentos são proporcionais ao número de palavras, O(n), e a normalização dos textos se beneficia da escolha da estrutura unordered_set para as stopwords. O cálculo dos pesos TF-IDF, embora tenha uma complexidade O(n * d), onde n é o número de termos e d é o número de documentos, é otimizado pelo uso de unordered_map, o que permite acesso rápido aos dados durante o processo de ranqueamento. O uso de memória é moderado, uma vez que as tabelas de espalhamento e vetores consomem mais espaço do que listas simples, mas essa sobrecarga é justificada pela necessidade de acesso rápido e eficiente.
+Embora o ```Quick Sort``` pudesse ser mais rápido em casos específicos, ele apresenta riscos de pior desempenho ```O(n²)``` com dados desbalanceados e não preserva a ordem relativa de documentos com relevâncias iguais. O ```Heap Sort```, por sua vez, apesar de garantir ```O(nlogn)```, não é estável e pode introduzir ```overhead``` na manipulação da heap, prejudicando a eficiência em estruturas mais complexas. 
 
 # Conclusão
 
-Com este algoritmo, podemos entender melhor sobre os conceitos de alocação dinâmica de matrizes, seu custo computacional, espaço de memória. Diante disso, é observado em como utilizar vários conceitos relacionados à matriz pode aumentar a noção de programação que, futuramente, poderá ser usada em outros projetos, principalmente em relação à área de jogos.
+Com a implementação do Merge Sort e das demais estruturas utilizadas neste projeto, foi possível não apenas aprofundar o conhecimento sobre algoritmos de ordenação, mas também compreender melhor a aplicação prática de estruturas como tuplas e pares. O uso desse algoritmo permitiu explorar como a ordenação estável e eficiente pode impactar o processamento de grandes volumes de documentos, garantindo a consistência necessária para a apresentação dos resultados. 
 
 # Compilação e Execução
 
